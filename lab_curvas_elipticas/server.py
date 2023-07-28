@@ -27,6 +27,7 @@ def start_server():
         print("Conexión establecida con", addr)
 
         while True:
+            print("--------------------")
             data = conn.recv(1024)
             if not data:
                 break

@@ -1,4 +1,3 @@
-# mitm.py
 import socket
 import random
 
@@ -24,20 +23,15 @@ def start_mitm():
         print(f"Cliente conectado desde {addr}")
 
         while True:
-            print("Esperando mensaje del cliente...")
+            print("--------------------")
             # Recibe el dato del cliente
             data = conn.recv(1024)
             if not data:
                 print("Cliente desconectado")
                 break
 
-            try:
-                print(f"Recibido del cliente: {data.decode()}")
-            except UnicodeDecodeError:
-                print(f"Recibido del cliente (datos binarios): {data.hex()}")
-
             # Aleatoriamente modifica el dato
-            if random.randint(1, 10) == 1:  # 10% de probabilidad de modificar el dato
+            if random.randint(1, 3) == 1:
                 data = bytearray(data)
                 data[0] = 0  # Cambia el primer byte a 0
                 print("Mensaje modificado antes de enviar al servidor")
@@ -50,17 +44,6 @@ def start_mitm():
             if not data:
                 print("Servidor desconectado")
                 break
-
-            try:
-                print(f"Recibido del servidor: {data.decode()}")
-            except UnicodeDecodeError:
-                print(f"Recibido del servidor (datos binarios): {data.hex()}")
-
-            # Aleatoriamente modifica el dato
-            if random.randint(1, 10) == 1:  # 10% de probabilidad de modificar el dato
-                data = bytearray(data)
-                data[0] = 0  # Cambia el primer byte a 0
-                print("Mensaje modificado antes de enviar al cliente")
 
             # Envia el dato al cliente
             print("Enviando al cliente...")
