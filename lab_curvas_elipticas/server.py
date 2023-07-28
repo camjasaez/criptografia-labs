@@ -39,6 +39,11 @@ def start_server():
                     "Firma inválida. El programa es susceptible a un ataque de hombre en el medio"
                 )
 
+            try:
+                conn.sendall(data)
+            except socket.error as e:
+                print(f"Error al enviar la data: {e}")
+
         print("El cliente se ha desconectado", addr)
         conn.close()
 
